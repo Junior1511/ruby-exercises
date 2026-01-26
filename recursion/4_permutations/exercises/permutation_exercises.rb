@@ -13,4 +13,27 @@ def permutations(array)
   #
   # NOTE: the tests do not check for ordering, so a return of `[[1, 2], [2, 1]]`
   # will be treated the same as `[[2, 1], [1, 2]]`
+  # 
+  # returns array full of permutations
+  # 
+  permutations_array = []
+
+  # Base case
+  # 
+  return [array] if array.length <= 1
+
+  array.each_with_index do |num, index|
+    left = array[0...index]
+    right = array[(index + 1)..]
+    rest = left + right
+
+    result =  permutations(rest)
+    result.each do |smaller_arrays|
+      permutations_array << ([num] + smaller_arrays)
+    end
+  end
+
+  permutations_array
 end
+
+permutations([1,2,3])
